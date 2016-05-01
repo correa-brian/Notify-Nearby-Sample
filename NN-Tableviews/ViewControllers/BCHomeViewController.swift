@@ -10,14 +10,17 @@ import UIKit
 
 class BCHomeViewController: BCBaseViewController, UITableViewDelegate, UITableViewDataSource {
     
+    //MARK: Properties
+    
     var categoriesTable: UITableView!
     var categories = ["Mens", "Womens", "Children"]
+    
+    //MARK: Lifecyle Methods
     
     override func loadView() {
         
         let frame = UIScreen.mainScreen().bounds
         let view = UIView(frame: frame)
-        view.backgroundColor = UIColor.blueColor()
         
         self.categoriesTable = UITableView(frame: frame, style: .Plain)
         self.categoriesTable.delegate = self
@@ -33,25 +36,24 @@ class BCHomeViewController: BCBaseViewController, UITableViewDelegate, UITableVi
 
     }
     
+    //MARK: Delegate Callback Methods
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.categories.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let category = self.categories[indexPath.row]
-        
         let cellId = "cellId"
         
         if let cell = tableView.dequeueReusableCellWithIdentifier(cellId){
-            cell.textLabel?.text = category
+            self.configureCell(cell, indexPath: indexPath)
             return cell
         }
         
         let cell = UITableViewCell(style: .Subtitle, reuseIdentifier: cellId)
-        cell.textLabel?.text = category
+        self.configureCell(cell, indexPath: indexPath)
         return cell
-        
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -61,11 +63,20 @@ class BCHomeViewController: BCBaseViewController, UITableViewDelegate, UITableVi
         subcategoryVc.category = category
         self.navigationController?.pushViewController(subcategoryVc, animated: true)
     }
+    
+    //MARK: Functions
+    
+    func configureCell(cell: UITableViewCell, indexPath: NSIndexPath) -> UITableViewCell {
+        
+        let category = self.categories[indexPath.row]
+        
+        cell.textLabel?.text = category
+        return cell
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
 
     }
-    
 
 }
