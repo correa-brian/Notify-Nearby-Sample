@@ -47,13 +47,11 @@ class BCHomeViewController: BCBaseViewController, UITableViewDelegate, UITableVi
         let cellId = "cellId"
         
         if let cell = tableView.dequeueReusableCellWithIdentifier(cellId){
-            self.configureCell(cell, indexPath: indexPath)
-            return cell
+            return self.configureCell(cell, indexPath: indexPath)
         }
         
         let cell = UITableViewCell(style: .Subtitle, reuseIdentifier: cellId)
-        self.configureCell(cell, indexPath: indexPath)
-        return cell
+        return self.configureCell(cell, indexPath: indexPath)
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
